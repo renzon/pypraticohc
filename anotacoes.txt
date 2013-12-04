@@ -1,0 +1,3 @@
+Programa para git e ssh no windows: GitBash
+ssh-keygen -t rsa <- comando para gerar chave ssh
+Copiar chave publica para GitHub
