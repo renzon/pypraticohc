@@ -33,8 +33,23 @@ def cifrar_cesar(texto, delta):
         texto_cifrado += cifra_caracter_rot42(caracter, delta)
     return texto_cifrado
 
+
 def decifrar_cesar(texto, delta):
-    cifrar_cesar(texto,-delta)
+    return cifrar_cesar(texto, -delta)
+
+
+def cifra_caracter_unicode(caracter, delta):
+    caracter_codigo = ord(caracter)
+    caracter_codigo += delta
+    caracter_codigo %= 0x10FFFF
+    return chr(caracter_codigo)
+
+
+def cifrar_unicode(texto, delta):
+    texto_cifrado = ''
+    for caracter in texto:
+        texto_cifrado += cifra_caracter_unicode(caracter, delta)
+    return texto_cifrado
 
 
 print(rot42('ABC'))
@@ -45,6 +60,10 @@ print(decifrar_rot42('QRS'))
 print(decifrar_rot42('qrs'))
 print(decifrar_rot42('1234567890çá'))
 
-print(cifrar_cesar('ABC',1))
-print(decifrar_cesar('BCD',1))
+print(cifrar_cesar('ABC', 1))
+print(decifrar_cesar('BCD', 1))
+
+print(cifrar_unicode('ABCD', 1))
+print(cifrar_unicode('Renzo Nuccitelli', 0x2800))
+print(cifrar_unicode('⡒⡥⡮⡺⡯⠠⡎⡵⡣⡣⡩⡴⡥⡬⡬⡩', -0x2800))
 
