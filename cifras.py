@@ -67,3 +67,20 @@ print(cifrar_unicode('ABCD', 1))
 print(cifrar_unicode('Renzo Nuccitelli', 0x2800))
 print(cifrar_unicode('⡒⡥⡮⡺⡯⠠⡎⡵⡣⡣⡩⡴⡥⡬⡬⡩', -0x2800))
 
+
+def cifrar(texto, chave_privada):
+    deltas=[ord(c) for c in chave_privada]
+    i=0;
+    texto_cifrado=''
+    for caracter in texto:
+        delta=deltas[i]
+        texto_cifrado+=cifra_caracter_rot42(caracter,delta)
+        i+=1
+        i%=len(deltas)
+    return texto_cifrado
+
+
+
+
+print(cifrar('Renzo Nucciiteli',"".join([chr(i) for i in range(1,3)])))
+print(cifrar('Renzo Nucciiteli',"Renzo Nucciiteli"))
