@@ -23,8 +23,18 @@ def rot42(texto):
 def decifrar_rot42(texto):
     texto_cifrado = ''
     for caracter in texto:
-        texto_cifrado += cifra_caracter_rot42(caracter=caracter, delta=42, )
+        texto_cifrado += cifra_caracter_rot42(caracter=caracter, delta=42)
     return texto_cifrado
+
+
+def cifrar_cesar(texto, delta):
+    texto_cifrado = ''
+    for caracter in texto:
+        texto_cifrado += cifra_caracter_rot42(caracter, delta)
+    return texto_cifrado
+
+def decifrar_cesar(texto, delta):
+    cifrar_cesar(texto,-delta)
 
 
 print(rot42('ABC'))
@@ -34,4 +44,7 @@ print(rot42('1234567890çá'))
 print(decifrar_rot42('QRS'))
 print(decifrar_rot42('qrs'))
 print(decifrar_rot42('1234567890çá'))
+
+print(cifrar_cesar('ABC',1))
+print(decifrar_cesar('BCD',1))
 
