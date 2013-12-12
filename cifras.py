@@ -1,3 +1,6 @@
+from itertools import cycle
+
+
 def cifra_caracter_rot42(caracter, delta=42):
     "Essa funcao deve receber apenas um caracter como parametro"
     if caracter.upper() not in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ':
@@ -68,19 +71,27 @@ print(cifrar_unicode('Renzo Nuccitelli', 0x2800))
 print(cifrar_unicode('⡒⡥⡮⡺⡯⠠⡎⡵⡣⡣⡩⡴⡥⡬⡬⡩', -0x2800))
 
 
-def cifrar(texto, chave_privada):
-    deltas=[ord(c) for c in chave_privada]
-    i=0;
-    texto_cifrado=''
+def _cifrar(texto, deltas):
+    texto_cifrado = ''
     for caracter in texto:
-        delta=deltas[i]
-        texto_cifrado+=cifra_caracter_rot42(caracter,delta)
-        i+=1
-        i%=len(deltas)
+        delta = next(deltas)
+        texto_cifrado += cifra_caracter_rot42(caracter, delta)
     return texto_cifrado
 
 
+def cifrar(texto, chave_privada):
+    deltas = cycle(map(ord, chave_privada))
+    return _cifrar(texto, deltas)
 
 
-print(cifrar('Renzo Nucciiteli',"".join([chr(i) for i in range(1,3)])))
-print(cifrar('Renzo Nucciiteli',"Renzo Nucciiteli"))
+def decifrar(texto, chave_privada):
+    deltas = cycle(-ord(c) for c in chave_privada)
+    return _cifrar(texto, deltas)
+
+
+
+print(cifrar('Renzo Nucciiteli', "".join([chr(i) for i in range(1, 3)])))
+print(cifrar('Renzo Nucciiteli', "Renzo Nucciiteli"))
+
+print(decifrar('Sgobp Owdejkugmk', "".join([chr(i) for i in range(1, 3)])))
+print(decifrar('Vbtrv Nhxxjjfbpj', "Renzo Nucciiteli"))
